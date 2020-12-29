@@ -11,17 +11,12 @@ class Perform2SequentialNetworkRequestsViewModel(
 
     fun perform2SequentialNetworkRequest() {
         viewModelScope.launch {
-            try {
-                uiState.value = UiState.Loading
+            uiState.value = UiState.Loading
 
-                val listOfAndroidVersions = mockApi.getRecentAndroidVersions()
-                val androidFeature = mockApi.getAndroidVersionFeatures(listOfAndroidVersions.last().apiLevel)
+            val listOfAndroidVersions = mockApi.getRecentAndroidVersions()
+            val androidFeatures = mockApi.getAndroidVersionFeatures(listOfAndroidVersions.last().apiLevel)
 
-                uiState.value = UiState.Success(androidFeature)
-            }
-            catch(exception: Exception) {
-                uiState.value = UiState.Error(exception.localizedMessage ?: "")
-            }
+            uiState.value = UiState.Success(androidFeatures)
         }
     }
 }
