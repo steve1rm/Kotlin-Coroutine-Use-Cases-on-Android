@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.lukaslechner.coroutineusecasesonandroid.base.BaseViewModel
 import com.lukaslechner.coroutineusecasesonandroid.mock.MockApi
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class Perform2SequentialNetworkRequestsViewModel(
     private val mockApi: MockApi = mockApi()
@@ -20,6 +21,7 @@ class Perform2SequentialNetworkRequestsViewModel(
                 uiState.value = UiState.Success(androidFeature)
             }
             catch(exception: Exception) {
+                Timber.e(exception.localizedMessage)
                 uiState.value = UiState.Error(exception.localizedMessage ?: "")
             }
         }
